@@ -1,0 +1,71 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<table>
+		<tr>
+			<th colspan="3">基本牌</th>
+		</tr>
+		<tr>
+			<td><button>杀  <span>16</span></button></td>
+			<td><button>闪  <span>8</span></button></td>
+			<td><button>桃  <span>4</span></button></td>
+		</tr>
+		<tr>
+			<th colspan="3">锦囊牌</th>
+		</tr>
+		<tr>
+			<td><button>无中生有  <span>2</span></button></td>
+			<td><button>顺手牵羊  <span>3</span></button></td>
+			<td><button>过河拆桥  <span>3</span></button></td>
+		</tr>
+		<tr>
+			<td><button>决斗  <span>2</span></button></td>
+			<td><button>南蛮入侵  <span>1</span></button></td>
+			<td><button>万箭齐发  <span>1</span></button></td>
+		</tr>
+		<tr>
+			<td><button>水淹七军  <span>1</span></button></td>
+			<td><button>乐不思蜀  <span>1</span></button></td>
+			<td><button>兵粮寸断  <span>1</span></button></td>
+		</tr>
+		<tr>
+			<td><button>无懈可击  <span>2</span></button></td>
+		</tr>
+		<tr>
+			<th colspan="3">装备牌</th>
+		</tr>
+		<tr>
+			<td><button>连弩  <span>1</span></button></td>
+			<td><button>青釭剑  <span>1</span></button></td>
+			<td><button>寒冰剑  <span>1</span></button></td>
+		</tr>
+		<tr>
+			<td><button>丈八蛇矛  <span>1</span></button></td>
+			<td><button>贯石斧  <span>1</span></button></td>
+		</tr>
+		<tr>
+			<td><button>八卦阵  <span>1</span></button></td>
+			<td><button>仁王盾  <span>1</span></button></td>
+		</tr>
+		</table>
+	</body>
+	<script>
+(function(){
+//	window.resizeTo(700, 700);
+//	var kill = 16;
+//	var dodge = 8;
+//	var peach = 4;
+
+	var btns = document.getElementsByTagName("button");
+	for(var i=0;i<btns.length;++i) {
+		btns[i].onclick = function() {
+			var now_count = this.getElementsByTagName("span")[0].firstChild;
+			if(--now_count.nodeValue == 0) {
+				this.disabled = true;
+			}
+		}
+	}
+ })();
+	</script>
+</html>
