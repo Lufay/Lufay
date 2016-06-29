@@ -1,27 +1,29 @@
+BOOST_PATH = ~/software/boost_1_59_0
+
 CXX = g++
 CXXFLAGS = -g -fPIC -Wall -Wextra -pipe
 LDFLAGS = -shared
-#BOOST_PATH = ~/liufei/third-64/boost/
 
+INCPATH = -I $(BOOST_PATH)
 #INCPATH = -I $(BOOST_PATH)/include
 #LIBPATH = -L $(BOOST_PATH)/lib
 #LIBS = -lboost
 
-SO = Derived.so
-
 all : main assembly
 
 main : main.cpp Base.o BaseFactory.hpp
-	g++ -ldl -rdynamic main.cpp Base.o -o $@
+	g++ $(INCPATH) -ldl -rdynamic main.cpp Base.o -o $@
 
-assembly : $(SO)
+assembly : Derived.so
 
 Derived.so : Derived.cpp
-	$(CXX) $(LDFLAGS) $(CXXFLAGS) $< -o $@
+	$(CXX) $(INCPATH) $(LDFLAGS) $(CXXFLAGS) $< -o $@
 
-%.o : %.cpp
+#%.o : %.cpp
+#	$(CXX) $(CXXFLAGS) -c $< -o $@
+Base.o : Base.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 .PHONY:clean
 clean:
-	rm -rf main $(SO) *.o
+	rm -rf main Derived.so *.o

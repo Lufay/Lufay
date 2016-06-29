@@ -20,11 +20,8 @@ def test_finally():
     finally:
         print "in test_finally finally"
 
+def foo2(a=10):
+    print a
+
 if  __name__ == "__main__":
-    try:
-        test_finally()
-    except NameError, e:
-        print "in main NameError:", e
-    except Exception,e:
-        print "Error:", e
-    print "end"
+    foo2(20 if 1==2 else None)
