@@ -549,3 +549,4 @@ datas
 
 # django generate
 test_dj/app1/migrations/*
+test_go/test_kitex/*
