@@ -28,7 +28,7 @@ func (cm ChainMap[KT, VT]) Keys() []KT {
 		return nil
 	}
 	var m Map[KT, VT] = cm[0]
-	keySet := NewSet(m.Keys())
+	keySet := NewSet(m.Keys()...)
 	for _, m = range cm[1:] {
 		keySet.Merge(m.Keys())
 	}

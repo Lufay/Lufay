@@ -2,6 +2,10 @@ package utils
 
 type List[T comparable] []T
 
+func NewList[T comparable](vals ...T) List[T] {
+	return vals
+}
+
 func (list *List[T]) Pop(i int) (val T) {
 	if i < 0 {
 		i = len(*list) + i
@@ -9,6 +13,42 @@ func (list *List[T]) Pop(i int) (val T) {
 	val = (*list)[i]
 	*list = append((*list)[:i], (*list)[i+1:]...)
 	return
+}
+
+func (list List[T]) Index(item T) int {
+	for i, v := range list {
+		if v == item {
+			return i
+		}
+	}
+	return -1
+}
+
+func (list List[T]) LastIndex(item T) int {
+	for i := len(list) - 1; i >= 0; i-- {
+		if list[i] == item {
+			return i
+		}
+	}
+	return -1
+}
+
+func (list List[T]) IndexFunc(test func(T) bool) int {
+	for i, v := range list {
+		if test(v) {
+			return i
+		}
+	}
+	return -1
+}
+
+func (list List[T]) LastIndexFunc(test func(T) bool) int {
+	for i := len(list) - 1; i >= 0; i-- {
+		if test(list[i]) {
+			return i
+		}
+	}
+	return -1
 }
 
 func (list List[T]) Distinct() List[T] {
@@ -57,6 +97,12 @@ func (list List[T]) Any(test func(T) bool) bool {
 		}
 	}
 	return false
+}
+
+func (list *List[T]) Reverse() {
+	for i, j := 0, len(*list)-1; i < j; i, j = i+1, j-1 {
+		(*list)[i], (*list)[j] = (*list)[j], (*list)[i]
+	}
 }
 
 // func (list List[T]) GroupBy(keyMapper func(T) interface{comparable}, downStream func(List[T]) any) map[any]any {

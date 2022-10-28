@@ -1,51 +1,11 @@
 package utils
 
-type Signed interface {
-	~int | ~int8 | ~int16 | ~int32 | ~int64
-}
-
-type Unsigned interface {
-	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 | ~uintptr
-}
-
-type Integer interface {
-	Signed | Unsigned
-}
-
-type Float interface {
-	~float32 | ~float64
-}
-
-type Complex interface {
-	~complex64 | ~complex128
-}
-
-type Ordered interface {
-	Integer | Float | ~string
-}
-
 type Heap[T Ordered] struct {
 	List []T
 	Desc bool
 }
 
-func adjust[T Ordered](list []T, top, last int, desc bool) {
-	topV := list[top]
-	for j := top*2 + 1; j <= last; j = j*2 + 1 {
-		if j < last && ((desc && list[j] < list[j+1]) || (!desc && list[j] > list[j+1])) {
-			j++
-		}
-		if (desc && topV < list[j]) || (!desc && topV > list[j]) {
-			list[top] = list[j]
-			top = j
-		} else {
-			break
-		}
-	}
-	list[top] = topV
-}
-
-func NewHeap[T Ordered](list []T, desc bool) Heap[T] {
+func NewHeap[T Ordered](desc bool, list ...T) Heap[T] {
 	lastPos := len(list) - 1
 	for i := (lastPos - 1) / 2; i >= 0; i-- {
 		adjust(list, i, lastPos, desc)
@@ -109,11 +69,27 @@ func Top[T Ordered](list []T, n int, desc bool) []T {
 	if len(list) < n {
 		return list
 	}
-	h := NewHeap(list, desc)
+	h := NewHeap(desc, list...)
 	topN := make([]T, 0, n)
 	for i := 0; i < n; i++ {
 		v, _ := h.Pop()
 		topN = append(topN, v)
 	}
 	return topN
+}
+
+func adjust[T Ordered](list []T, top, last int, desc bool) {
+	topV := list[top]
+	for j := top*2 + 1; j <= last; j = j*2 + 1 {
+		if j < last && ((desc && list[j] < list[j+1]) || (!desc && list[j] > list[j+1])) {
+			j++
+		}
+		if (desc && topV < list[j]) || (!desc && topV > list[j]) {
+			list[top] = list[j]
+			top = j
+		} else {
+			break
+		}
+	}
+	list[top] = topV
 }

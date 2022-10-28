@@ -9,9 +9,9 @@ func EmptySet[T comparable](size int) Set[T] {
 	return map[T]struct{}{}
 }
 
-func NewSet[T comparable](slice []T) Set[T] {
-	set := make(map[T]struct{}, len(slice))
-	for _, t := range slice {
+func NewSet[T comparable](vals ...T) Set[T] {
+	set := make(map[T]struct{}, len(vals))
+	for _, t := range vals {
 		set[t] = struct{}{}
 	}
 	return set

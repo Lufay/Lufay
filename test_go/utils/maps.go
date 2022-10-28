@@ -2,6 +2,14 @@ package utils
 
 type Map[KT comparable, VT any] map[KT]VT
 
+func NewMap[KT comparable, VT any](entries ...Entry[KT, VT]) Map[KT, VT] {
+	m := make(map[KT]VT, len(entries))
+	for _, e := range entries {
+		m[e.GetKey()] = e.GetVal()
+	}
+	return m
+}
+
 func NewMapWithDefaultVal[KT comparable, VT any](ks []KT, d VT) Map[KT, VT] {
 	m := make(map[KT]VT, len(ks))
 	for _, k := range ks {
