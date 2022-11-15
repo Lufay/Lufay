@@ -17,8 +17,10 @@ func NewSet[T comparable](vals ...T) Set[T] {
 	return set
 }
 
-func (set *Set[T]) Add(item T) *Set[T] {
-	(*set)[item] = struct{}{}
+func (set *Set[T]) Add(items ...T) *Set[T] {
+	for _, item := range items {
+		(*set)[item] = struct{}{}
+	}
 	return set
 }
 

@@ -17,7 +17,7 @@ func (list *List[T]) Pop(i int) (val T) {
 
 func (list List[T]) Index(item T) int {
 	for i, v := range list {
-		if v == item {
+		if v == item { // can use reflect.DeepEqual with any element
 			return i
 		}
 	}
@@ -103,6 +103,10 @@ func (list *List[T]) Reverse() {
 	for i, j := 0, len(*list)-1; i < j; i, j = i+1, j-1 {
 		(*list)[i], (*list)[j] = (*list)[j], (*list)[i]
 	}
+}
+
+func (list *List[T]) Clear() {
+	*list = (*list)[:0]
 }
 
 // func (list List[T]) GroupBy(keyMapper func(T) interface{comparable}, downStream func(List[T]) any) map[any]any {
