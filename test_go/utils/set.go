@@ -2,6 +2,8 @@ package utils
 
 type Set[T comparable] map[T]struct{}
 
+// Set must call EmptySet or NewSet before use
+
 func EmptySet[T comparable](size int) Set[T] {
 	if size > 0 {
 		return make(map[T]struct{}, size)

@@ -36,21 +36,26 @@ def load_hook(*Ts):
 if __name__ == '__main__':
     from dataclasses import dataclass
     from typing import List
+    from collections import namedtuple
 
     @dataclass
     class A:
         a: int
 
+    NT = namedtuple('NT', 'x y z')
     @dataclass
     class B:
         a: List[A]
         b: int
         c: set
+        d: NT
+
 
     a = B(
         a = [A(i) for i in range(10)],
         b = 10,
         c = {1, 2, 5},
+        d = NT('x', 2.2, 10),
     )
 
     s = json.dumps(a, default=dump_default(A, B))
